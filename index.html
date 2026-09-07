@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anh Dang — PhD Candidate</title>
+<meta name="description" content="Academic website of Anh Dang, PhD candidate.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Imperial+Script&display=swap" rel="stylesheet">
+<style>
+:root {
+    --ink: #000000;
+    --ink-soft: #000000;
+    --paper: #ffffff;
+    --rule: #d8d8d8;
+    --measure: 46rem;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  body {
+    font-family: "IBM Plex Serif", Georgia, serif;
+    font-size: 1.0625rem;              /* ~17px, Plex Serif có thân chữ lớn hơn Garamond */
+    line-height: 1.65;
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+    text-decoration: none;
+  }
+
+  .page {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 6rem;
+  }
+
+  /* ---------- Header / hero ---------- */
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .portrait {
+    width: 9rem;
+    height: 9rem;
+    object-fit: cover;              /* cắt ảnh cho vừa khung tròn, không méo */
+    border-radius: 50%;             /* khung tròn */
+    border: 1px solid var(--rule);  /* viền mảnh đơn giản */
+    flex-shrink: 0;
+  }
+
+  /* Màn hình hẹp: xếp dọc, ảnh lên trên */
+  @media (max-width: 560px) {
+    .header-top { flex-direction: column; align-items: flex-start; gap: 1.6rem; }
+    .portrait { order: -1; width: 7.5rem; height: 7.5rem; }
+  }
+
+  .name-script {
+    font-family: "Imperial Script", cursive;
+    font-size: 2.2rem;
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+  }
+  header h1 {
+    font-size: clamp(2.4rem, 7vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+  }
+
+  header .role {
+    margin-top: 0.9rem;
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    position: sticky;         /* bám ở mép trên khi cuộn trang */
+    top: 0;
+    z-index: 10;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+  }
+  .topbar-inner {
+    max-width: var(--measure);      /* thẳng hàng với cột nội dung */
+    margin: 0 auto;
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 2.2rem;
+  }
+  .topbar-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+  }
+  .topbar nav {
+    display: flex;
+    gap: 1.6rem;
+  }
+  .topbar nav a {
+    text-decoration: none;
+    font-size: 1.02rem;
+  }
+  .topbar nav a:hover { text-decoration: underline; }
+
+  /* Khi bấm link menu, chừa chỗ cho thanh dính khỏi che tiêu đề section */
+  section { scroll-margin-top: 4.5rem; }
+
+  /* ---------- Sections ---------- */
+  section { margin-top: 4rem; }
+  .page > section:first-child { margin-top: 0; }  /* trang phụ: section đầu không cần đẩy xuống */
+
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+  }
+
+  section p + p { margin-top: 1rem; }
+
+  /* ---------- Contact line ---------- */
+  .contact {
+    margin-top: 1.4rem;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Publications ---------- */
+  .pub-year {
+    font-size: 1.20rem;
+    color: #111111;                    /* năm màu xám dịu như mẫu */
+    margin: 1.8rem 0 0.9rem;
+  }
+  .pub-year:first-of-type { margin-top: 0; }
+
+  ol.pubs { list-style: none; }
+  ol.pubs li { margin-bottom: 1.5rem; }
+
+  .pub-title {
+    font-weight: 600;
+    font-size: 1.12rem;
+    text-decoration: none;
+  }
+  .pub-title:hover { text-decoration: underline; }
+
+  .pub-authors { margin-top: 0.15rem; }
+  .pub-authors strong { font-weight: 600; }   /* tên của bạn in đậm */
+
+  .pub-meta {
+    margin-top: 0.1rem;
+    font-size: 1.12rem;
+    color: #787677;                    /* dòng venue màu xám nhạt */
+  }
+
+  .pub-links { font-size: 1rem; }
+
+  /* Hộp abstract mở/đóng (dùng thẻ details, không cần JavaScript) */
+  details.pub-abstract { margin-top: 0.4rem; }
+  details.pub-abstract summary {
+    cursor: pointer;
+    width: fit-content;          /* chỉ vùng chữ bấm được, không cả dòng */
+    font-size: 1rem;
+    color: #787677;
+  }
+  details.pub-abstract summary:hover { color: var(--ink); text-decoration: underline; }
+  details.pub-abstract[open] summary { color: var(--ink); }
+  .abstract-box {
+    margin: 0.5rem 0 0.2rem;
+    padding: 0.8rem 1.1rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    background: #fafafa;
+    border-left: 2px solid var(--ink);
+  }
+
+
+  
+
+  /* ---------- CV ---------- */
+  .cv-link {
+    display: inline-block;
+    margin-top: 0.3rem;
+    padding: 0.55rem 1.4rem;
+    border: 1px solid var(--ink);
+    text-decoration: none;
+    font-size: 1.05rem;
+  }
+  .cv-link:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .cv-note {
+    margin-top: 0.8rem;
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+  }
+
+   /* ---------- Highlight ---------- */
+  mark {
+    background: #ffd1d5;            
+    color: inherit;                 /* giữ màu chữ đen, không đổi theo trình duyệt */
+    padding: 0.08em 0.25em;
+    border-radius: 2px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;    /* xuống dòng vẫn bo góc đẹp ở cả hai đầu */
+  }
+  mark.hl-blue  { background: #cfe3f7; }
+  mark.hl-green { background: #a6cb96; }
+ 
+  ul.bullets {
+  list-style: disc;
+  padding-left: 1.3rem;     /* chừa chỗ cho dấu chấm */
+  margin-top: 0.5rem;
+}
+  ul.bullets li { margin-bottom: 0.35rem; }
+  /* ---------- Footer ---------- */
+  footer {
+    margin-top: 5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-name" href="#">Anh Dang</a>
+    <nav aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#publications">Publications</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#cv">CV</a>
+    </nav>
+  </div>
+</div>
+
+<div class="page">
+
+  <header>
+    <div class="header-top">
+      <div class="header-text">
+        <h1>Anh Dang</h1>
+        <p class="name-script">Đặng Thị Thảo Anh</p>
+        <p class="role">PhD candidate in NLP | Utrecht University</p>
+        <p class="contact">
+          <a href="mailto:t.t.a.dang@uu.nl">Email</a>
+          &nbsp;—&nbsp;
+          <a href="https://scholar.google.com/citations?user=ASKtctEAAAAJ&hl=en">Google Scholar</a>
+          &nbsp;—&nbsp;
+          <a href="https://www.linkedin.com/in/thi-thao-anh-dang/">LinkedIn</a>
+          &nbsp;—&nbsp;
+          <a href="https://github.com/dangthithaoanh?tab=repositories">GitHub</a>
+        </p>
+      </div>
+      <!-- ✏️ Đặt file photo.jpg cùng thư mục với index.html -->
+      <img class="portrait" src="photo.jpg" alt="Portrait of Anh Dang">
+    </div>
+  </header>
+
+  <section id="about">
+    <h2>About</h2>
+    <!-- ✏️ Viết 2–3 đoạn giới thiệu: hướng nghiên cứu, advisor, quan tâm hiện tại -->
+    <p>
+      I am a third-year PhD Candidate at Utrecht University, supervised by <a href="https://sites.google.com/view/massimo-poesio/home">Prof. Massimo Poesio</a>
+      and <a href="https://ricknouwen.org/">Prof. Rick Nouwen</a>. I am affiliated with the <a href="https://uu-nlp.github.io/">UU-NLP group</a>. My research focuses on studying how <mark>coreference ambiguity</mark> is recognized, represented
+      and verbalized by LLMs. I am interested in using <mark class="hl-green">mechanistic interpretability</mark> methods to investigate how coreference knowledge is encoded and used by LLMs. 
+      It's a part of a larger project on studying Meaning Variation in NLP led by Prof. Massimo Poesio and funded by NWO.
+    </p>
+    <p>
+      Besides my research, I am organizing the biweekly meeting on Dealing with Meaning
+      Variation in NLP (DeMeVa). I am also supervising Bachelor's students on topics related 
+      to meaning variation and interpretability. 
+      
+    </p>
+  </section>
+
+  
+
+
+
+  <section id="publications">
+    <h2>Publications</h2>
+
+    <!-- ✏️ Nhóm theo năm; mỗi mục là một citation với hanging indent.
+         In đậm tên bạn trong danh sách tác giả bằng <strong>. -->
+    <p class="pub-year">2026</p>
+    <ol class="pubs">
+      <li>
+        <a class="pub-title" href="https://arxiv.org/abs/2609.03687">A Circuit for Plural Reference: How LLMs Represent and Retrieve Singular and Plural Entities</a>
+        <p class="pub-authors"><strong>Anh Dang</strong>, Rick Nouwen, and Massimo Poesio</p>
+        <p class="pub-meta">Findings of EMNLP 2026, Budapest, Hungary</p>
+        <details class="pub-abstract">
+          <summary>Abstract</summary>
+          <div class="abstract-box">
+            Coreference resolution is an important task in contextual reasoning. In this paper, we investigate the mechanism for representing and retrieving singular and 
+            plural entities for plural reference. We use a combination of mechanistic interpretability and attention pattern analysis to study the process in which LLMs 
+            predict a pronoun to refer back to previously mentioned entities. Using a range of causal intervention techniques, we find a set of attention heads that are 
+            responsible for (1) representing coreference information in the input, (2) identifying entities that form a plural reference, (3) transferring the information 
+            to the component that is responsible for selecting the antecedents and predicting the pronoun. We also find that LLMs align with humans in preference for plural 
+            pronoun. Specifically, entities in a plural construction are more likely to be referred to as a plural entity if they are ontologically similar and are linked by the conjunction "and".
+          </div>
+        </details>
+      </li>
+    </ol>
+
+    <p class="pub-year">2025</p>
+    <ol class="pubs">
+      <li>
+        <a class="pub-title" href="https://aclanthology.org/2025.blackboxnlp-1.16/">Can LLMs Detect Ambiguous Plural Reference? An Analysis of Split-Antecedent and Mereological Reference</a>
+        <p class="pub-authors"><strong>Anh Dang</strong>, Rick Nouwen, and Massimo Poesio</p>
+        <p class="pub-meta">8th BlackboxNLP Workshop (co-located with EMNLP 2025), Suzhou, China</p>
+        <details class="pub-abstract">
+          <summary>Abstract</summary>
+          <div class="abstract-box">
+            Our goal is to study how LLMs represent and interpret plural reference in ambiguous and unambiguous contexts. We ask the following research questions: (1) 
+            Do LLMs exhibit human-like preferences in representing plural reference? and (2) Are LLMs able to detect ambiguity in plural anaphoric expressions and identify 
+            possible referents? To address these questions, we design a set of experiments, examining pronoun production using next-token prediction tasks, 
+            pronoun interpretation, and ambiguity detection using different prompting strategies. We then assess how comparable LLMs are to humans in formulating 
+            and interpreting plural reference. We find that LLMs are sometimes aware of possible referents of ambiguous pronouns. However, they do not always follow 
+            human reference when choosing between interpretations, especially when the possible interpretation is not explicitly mentioned. In addition, they struggle 
+            to identify ambiguity without direct instruction. Our findings also reveal inconsistencies in the results across different types of experiments.
+          </div>
+        </details>
+      </li>
+      <li>
+        <a class="pub-title" href="https://aclanthology.org/2025.icnlsp-1.24.pdf">Tokenization and Morphology in Multilingual Language Models: A Comparative Analysis of mT5 and ByT5</a>
+        <p class="pub-authors"><strong>Anh Dang</strong>, Limor Raviv, and Lukas Galke</p>
+        <p class="pub-meta">8th International Conference on Natural Language and Speech Processing (ICNLSP 2025)</p>
+        <details class="pub-abstract">
+          <summary>Abstract</summary>
+          <div class="abstract-box">
+            Morphology is a crucial factor for multilingual language modeling as it poses direct challenges for tokenization. Here, we seek to understand how tokenization 
+            influences the morphological knowledge encoded in multilingual language models. Specifically, we capture the impact of tokenization by contrasting a minimal 
+            pair of multilingual language models: mT5 and ByT5. The two models share the same architecture, training objective, and training data and only differ in their 
+            tokenization strategies: subword tokenization vs. character-level tokenization. Probing the morphological knowledge encoded in these models on four tasks and 
+            17 languages, our analyses show that the models learn the morphological systems of some languages better than others and that morphological information is 
+            encoded in the middle and late layers. Finally, we show that languages with more irregularities benefit more from having a higher share of the pre-training data.
+          </div>
+        </details>
+      </li>
+    </ol>
+
+    <p class="pub-year">2024</p>
+    <ol class="pubs">
+      <li>
+        <a class="pub-title" href="https://aclanthology.org/2024.cmcl-1.15.pdf">Morphology Matters: Probing the Cross-linguistic Morphological Generalization Abilities of Large Language Models through a Wug Test</a>
+        <p class="pub-authors"><strong>Anh Dang</strong>, Rick Nouwen, and Massimo Poesio</p>
+        <p class="pub-meta">Workshop on Cognitive Modeling and Computational Linguistics (co-located with ACL 2024), Bangkok, Thailand</p>
+        <details class="pub-abstract">
+          <summary>Abstract</summary>
+          <div class="abstract-box">
+            We develop a multilingual version of the Wug Test, an artificial word completion experiment that is typically used to test the morphological knowledge of children, 
+            and apply it to the GPT family of large language models (LLMs). LLMs’ performance on this test was evaluated by native speakers of six different languages, 
+            who judged whether the inflected and derived forms generated by the models conform to the morphological rules of their language. Our results show that LLMs 
+            can generalize their morphological knowledge to new, unfamiliar words, but that their success in generating the “correct” generalization (as judged by native 
+            human speakers) is predicted by a language’s morphological complexity (specifically, integrative complexity). We further find that the amount of training 
+            data has surprisingly little on LLMs’ morphological generalization abilities within the scope of the analyzed languages. These findings highlight that 
+            “morphology matters”, and have important implications for improving low-resource language modeling.
+          </div>
+        </details>
+      </li>
+    </ol>
+  </section>
+
+  <section id="teaching">
+    <h2>Teaching</h2>
+    <ul class="bullets">
+      <li>2025–present: Methods for AI Research (MSc Artificial Intelligence), Utrecht University</li>
+    </ul>
+  </section>
+
+  <section id="cv">
+    <h2>Curriculum Vitae</h2>
+    <!-- ✏️ Đặt file cv.pdf cùng thư mục với index.html -->
+    <a class="cv-link" href="cv.pdf">Download CV (PDF)</a>
+    <p class="cv-note">Last updated September 2026.</p>
+  </section>
+
+  <footer>
+    © 2026 Anh Dang
+  </footer>
+
+</div>
+</body>
+</html>
